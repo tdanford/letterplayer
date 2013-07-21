@@ -7,14 +7,18 @@ import java.io.IOException;
  * The Board object also contains, for convenience, an array of all legal Word objects for this particular
  * board arrangement.
  * 
- * @author danfoti1
+ * @author tdanford
  *
  */
 public class Board {
 
-	public char[][] letters;
-	public LetterSet letterSet;
-	public Word[] words;
+	private char[][] letters;
+	private LetterSet letterSet;
+	private Word[] words;
+
+    public Board(String b) throws IOException {
+        this(b.toCharArray());
+    }
 	
 	public Board(char[] b) throws IOException { 
 		if(b.length != 25) { 
@@ -34,7 +38,33 @@ public class Board {
 		for(Word w : ws) { words[i++] = w; }
 	}
 
-	public char getLetter(int row, int col) {
-		return letters[row][col];
-	}
+    public WordSet getWordSet() { return new WordSet(words); }
+
+    public LetterSet getLetterSet() { return letterSet; }
+
+	public char getLetter(int row, int col) { return letters[row][col]; }
+
+    public int hashCode() {
+        int code = 17;
+        for(int i = 0; i < letters.length; i++) {
+            for(int j = 0; j < letters[i].length; j++) {
+                code += (i*5)+j; code *= 37;
+                code += (int)letters[i][j]; code *= 37;
+            }
+        }
+
+        return code;
+    }
+
+    public boolean equals(Object o) {
+        if(!(o instanceof Board)) { return false; }
+        Board b = (Board)o;
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                if(letters[i][j] != b.letters[i][j]) { return false; }
+            }
+        }
+
+        return true;
+    }
 }
