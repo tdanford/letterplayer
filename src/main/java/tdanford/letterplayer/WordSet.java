@@ -7,6 +7,13 @@ public class WordSet implements Iterable<Word> {
 	
 	private TreeSet<Word> words;
 
+    public WordSet(Word[] ws) {
+        words = new TreeSet<Word>();
+        for(Word w : words) {
+            words.add(w);
+        }
+    }
+
 	public WordSet() throws IOException { 
 		words = new TreeSet<Word>();
 		
@@ -17,7 +24,9 @@ public class WordSet implements Iterable<Word> {
 			String line;
 			while((line = br.readLine()) != null) { 
 				Word w = new Word(line.trim());
-				words.add(w);
+                if(w.length() >= 3) {
+                    words.add(w);
+                }
 			}
 			
 		} finally { 
