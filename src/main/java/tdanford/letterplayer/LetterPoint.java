@@ -37,4 +37,19 @@ public class LetterPoint {
 	public static boolean isValidRowColumn(int r, int c) { 
 		return r >= 0 && c >= 0 && r < 5 && c < 5;
 	}
+
+    public int hashCode() {
+        int code = 17;
+        code += row; code *= 37;
+        code += col; code *= 37;
+        return code;
+    }
+
+    public boolean equals(Object o) {
+        if(!( o instanceof LetterPoint )) { return false; }
+        LetterPoint p = (LetterPoint)o;
+        return row == p.row && col == p.col;
+    }
+
+    public String toString() { return String.format("<%d,%d>", row, col); }
 }
