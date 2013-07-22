@@ -5,7 +5,7 @@ package tdanford.letterplayer;
  * 
  * @author Timothy Danford
  */
-public class BoardPosition {
+public class BoardTreePosition {
 
 	private Board board;
 	
@@ -13,11 +13,11 @@ public class BoardPosition {
 	
 	private boolean isRedPlayer;
 	
-	private BoardPosition previousPosition;
+	private BoardTreePosition previousPosition;
 	
 	private BoardState state;
 
-	public BoardPosition(Board b, boolean isRedPlayer) {
+	public BoardTreePosition(Board b, boolean isRedPlayer) {
 		this.board = b;
 		this.isRedPlayer = isRedPlayer;
 		previousPosition = null;
@@ -25,12 +25,21 @@ public class BoardPosition {
 		state = new BoardState();
 	}
 	
-	public BoardPosition(BoardPosition p, Word w) { 
+	public BoardTreePosition(BoardTreePosition p, Word w) {
 		board = p.board;
 		lastWord = w;
 		previousPosition = p;
 		isRedPlayer = !p.isRedPlayer;
 		state = null; // TODO FIX ME.
 	}
-	
+
+    public boolean isRedPlayer() { return isRedPlayer; }
+
+    public Board getBoard() { return board; }
+
+    public BoardTreePosition getPrevious() { return previousPosition; }
+
+    public BoardState getBoardState() { return state; }
+
+
 }
