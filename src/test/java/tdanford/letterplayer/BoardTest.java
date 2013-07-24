@@ -78,4 +78,15 @@ public class BoardTest {
         assertEquals(b.hashCode(), b2.hashCode());
         assertEquals(b, b2);
     }
+
+    @Test
+    public void testEnumerateSimpleWord() throws IOException {
+        Board b = new Board("cbbaaaaaaaaaaaaaaaaaaaaad");
+
+        Collection<WordPlay> plays = b.enumerateWordPlays(new Word("cbd"));
+
+        assertEquals(plays.size(), 2, "There should be two distinct plays for 'cbd'");
+        assertTrue(plays.contains(new WordPlay(new LetterPoint(0, 0), new LetterPoint(0, 1), new LetterPoint(4, 4))));
+        assertTrue(plays.contains(new WordPlay(new LetterPoint(0, 0), new LetterPoint(0, 2), new LetterPoint(4, 4))));
+    }
 }
