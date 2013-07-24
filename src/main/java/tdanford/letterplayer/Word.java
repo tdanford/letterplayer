@@ -1,5 +1,8 @@
 package tdanford.letterplayer;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Word implements Comparable<Word> {
 
 	private String value;
@@ -7,7 +10,9 @@ public class Word implements Comparable<Word> {
 	public Word(String v) { 
 		value = v.toLowerCase();
 	}
-	
+
+    public char charAt(int i) { return value.charAt(i); }
+
 	public int length() { return value.length(); }
 	
 	public LetterSet getLetters() { return new LetterSet(value); }

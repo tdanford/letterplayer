@@ -74,6 +74,15 @@ public class WordTest {
     }
 
     @Test
+    public void testCharAtAccessor() {
+        Word word = new Word("abc");
+
+        assertEquals(word.charAt(0), 'a');
+        assertEquals(word.charAt(1), 'b');
+        assertEquals(word.charAt(2), 'c');
+    }
+
+    @Test
     public void testWordEquality() {
         Word w1 = new Word("foo");
         Word w2 = new Word("foo");
