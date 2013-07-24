@@ -6,6 +6,11 @@ public class LetterSet {
 
 	private Map<Character,int[]> charCounts;
 
+    /**
+     * Turns an array of characters into a LetterSet.
+     *
+     * @param chars
+     */
 	public LetterSet(char... chars) {
 		charCounts = new TreeMap<Character,int[]>();
 		for(int i = 0; i < chars.length; i++) {
@@ -16,9 +21,55 @@ public class LetterSet {
 		}
 	}
 
+    /**
+     * Creates a LetterSet that counts the letters in a given word.
+     *
+     * @param word
+     */
 	public LetterSet(String word) { 
 		this(word.toCharArray());
 	}
+
+    /**
+     * Copies a LetterSet.
+     *
+     * @param set
+     */
+    public LetterSet(LetterSet set) {
+        charCounts = new TreeMap<Character,int[]>();
+        for(Character c : set.charCounts.keySet()) {
+            charCounts.put(c, new int[] { set.charCounts.get(c)[0] });
+        }
+    }
+
+    /**
+     * Updates (writes to!) the LetterSet on which this method is invoked,
+     * removing a given character from the letter set.
+     *
+     * If the LetterSet already has 0 characters of this type, then this method
+     * does nothing.
+     *
+     * @param removed
+     */
+    public void remove(char removed) {
+        if(charCounts.containsKey(removed)) {
+            charCounts.get(removed)[0] -= 1;
+            if(charCounts.get(removed)[0] <= 0) {
+                charCounts.remove(removed);
+            }
+        }
+    }
+
+    /**
+     * Updates (writes to!) the LetterSet on which this method is invoked, adding a
+     * single character of the given type to the set.
+     *
+     * @param add
+     */
+    public void add(char add) {
+        if(!charCounts.containsKey(add)) { charCounts.put(add, new int[] { 0 }); }
+        charCounts.get(add)[0] += 1;
+    }
 	
 	public int count(Character c) { 
 		return charCounts.containsKey(c) ? charCounts.get(c)[0] : 0;

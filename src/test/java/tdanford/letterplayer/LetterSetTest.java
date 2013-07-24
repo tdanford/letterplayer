@@ -30,6 +30,34 @@ public class LetterSetTest {
     }
 
     @Test
+    public void testRemove() {
+        LetterSet ls1 = new LetterSet('a', 'b', 'c');
+        LetterSet ls2 = new LetterSet('a', 'b', 'b', 'c');
+
+        assertNotEquals(ls1, ls2);
+        assertFalse(ls1.containsLetterSet(ls2));
+        assertTrue(ls2.containsLetterSet(ls1));
+
+        ls2.remove('b');
+
+        assertEquals(ls1, ls2);
+        assertTrue(ls1.containsLetterSet(ls2));
+        assertTrue(ls2.containsLetterSet(ls1));
+
+        ls2.remove('b');
+
+        assertNotEquals(ls1, ls2);
+        assertTrue(ls1.containsLetterSet(ls2));
+        assertFalse(ls2.containsLetterSet(ls1));
+
+        LetterSet ls = new LetterSet(ls2);
+        ls2.remove('b');
+
+        // after removing 'b' twice, removing it any more should leave ls2 unchanged.
+        assertEquals(ls, ls2);
+    }
+
+    @Test
     public void testLetterSetContainment() {
         LetterSet ls1 = new LetterSet('a', 'b', 'c');
         LetterSet ls2 = new LetterSet('a', 'b', 'b', 'c');
@@ -94,6 +122,13 @@ public class LetterSetTest {
         assertEquals(ls1, new LetterSet("cba"));
 
         assertNotEquals(ls1, new LetterSet("abcd"));
+
+        // Testing the copy constructor.
+        assertEquals(ls1, new LetterSet(ls1));
+        assertEquals(ls2, new LetterSet(ls2));
+        assertEquals(ls3, new LetterSet(ls3));
+        assertEquals(ls4, new LetterSet(ls4));
+        assertEquals(ls5, new LetterSet(ls5));
     }
 }
 
